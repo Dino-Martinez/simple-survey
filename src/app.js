@@ -6,6 +6,21 @@ const morgan = require('morgan') // Request logging
 const compression = require('compression') // GZIP middleware for compressing responses
 const handlebars = require('express-handlebars')
 const path = require('path')
+const mongoose = require("mongoose");
+require('dotenv').config();
+
+//Database Connection
+const connectDb = async () => {
+  try {
+    await mongoose.connect(process.env.DB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    console.log("Connected to MongoDB...")
+  } catch (error) {
+    console.log(error.message)
+  }
+}
 
 // App
 const app = express()
@@ -28,7 +43,8 @@ app.use(express.json()) // Handling JSON data
 app.use(compression())
 
 // Routes
-require('./routes/index.js')(app)
+require('./routes/index.js')(app, connectDb)
 
 // Export App for server/testing
-module.exports = app
+module.exports = app, connectDb
+

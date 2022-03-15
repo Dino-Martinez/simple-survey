@@ -1,4 +1,6 @@
-module.exports = app => {
+module.exports = (app, connectDb) => {
+
+  connectDb()
   app.get('/', (req, res) => {
     res.render('home')
   })
@@ -37,4 +39,3 @@ module.exports = app => {
     res.render('survey', {survey: exampleSurvey})
   })
 }
-
