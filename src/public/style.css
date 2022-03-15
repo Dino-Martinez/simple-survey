@@ -1,0 +1,73 @@
+html {
+  --text-1: var(--gray-9);
+  --text-9: var(--gray-1);
+  --brand: var(--violet-6);
+  
+}
+@media (prefers-color-scheme: dark) {
+  html {
+    --text-1: var(--gray-1);
+    --text-9: var(--gray-9);
+    --brand: var(--violet-2);
+  }
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  gap: var(--size-fluid-3);
+  padding: var(--size-fluid-3);
+  position: absolute;
+  top: 0;
+}
+
+.container {
+  background: var(--surface-2);
+
+  max-width: calc(var(--size-fluid-10) * 2);
+  padding: var(--size-fluid-6);
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: var(--size-fluid-3);
+
+  box-shadow: var(--shadow-2);
+}
+
+.container.column {
+  flex-direction: column;
+}
+
+.button {
+  padding: var(--size-fluid-1) var(--size-fluid-3);
+  border: var(--border-size-2) solid var(--brand);
+  border-radius: var(--radius-2);
+
+  color: var(--text-1);
+
+  transition-property: color, background-color;
+  transition-duration: 250ms;
+  transition-timing-function: var(--ease-out-1);
+}
+
+.button:hover {
+  text-decoration: none;
+  background-color: var(--brand);
+  color: var(--text-9);
+}
+
+.prompt-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--size-fluid-2);
+  margin-bottom: var(--size-fluid-2);
+}
