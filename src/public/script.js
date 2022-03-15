@@ -15,10 +15,10 @@ addPromptButton.addEventListener('click', (e) => {
   prompt.classList.add('prompt')
   prompt.innerHTML = `
   <label for="prompt">Prompt</label>
-  <input type="text" name="prompts[${numPrompts}][prompt]" id="prompt-${numPrompts}">
+  <input type="text" name="questions[${numPrompts}][prompt]" id="prompt-${numPrompts}">
 
   <label for="type">Type</label>
-  <select name="prompts[${numPrompts}][type]" id="type-${numPrompts}">
+  <select name="questions[${numPrompts}][type]" id="type-${numPrompts}">
     <option value="text">Text</option>
     <option value="number">Number</option>
   </select>

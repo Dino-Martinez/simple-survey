@@ -18,6 +18,16 @@ body {
   align-items: center;
 }
 
+nav {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  gap: var(--size-fluid-3);
+  padding: var(--size-fluid-3);
+  position: absolute;
+  top: 0;
+}
+
 .container {
   background: var(--surface-2);
 
