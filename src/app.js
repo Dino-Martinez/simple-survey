@@ -28,7 +28,8 @@ const app = express()
 // View Engine
 app.engine('hbs', handlebars.engine({
   defaultLayout: 'main',
-  extname: '.hbs'
+  extname: '.hbs',
+  helpers: require('./utils/handlebarsHelpers')
 }))
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'views'))
