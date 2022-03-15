@@ -1,15 +1,7 @@
-// function addPrompt () {
-//   const label = document.createElement('label')
-//   createForm.appendChild(label)
-// }
-
-// const createForm = document.querySelector('#create-form')
-// // const numInputs = document.querySelectorAll('input').length
-// addPromptButton.on('click', addPrompt)
-
 const promptGroup = document.querySelector('#prompt-group')
 const addPromptButton = document.querySelector('#add-prompt')
 let numPrompts = 0
+
 addPromptButton.addEventListener('click', (e) => {
   const prompt = document.createElement('div')
   prompt.classList.add('prompt')
@@ -18,18 +10,57 @@ addPromptButton.addEventListener('click', (e) => {
   <input type="text" name="questions[${numPrompts}][prompt]" id="prompt-${numPrompts}">
 
   <label for="type">Type</label>
-  <select name="questions[${numPrompts}][type]" id="type-${numPrompts}">
+  `
+
+  const select = document.createElement('select')
+  select.id = `type-${numPrompts}`
+  select.name = `questions[${numPrompts}][type]`
+  select.innerHTML = `
     <option value="text">Text</option>
     <option value="number">Number</option>
-  </select>
+    <option value="checkbox">Checkboxes</option>
+    <option value="radio">Radio Buttons</option>
   `
-  numPrompts++
-  promptGroup.appendChild(prompt)
-})
 
-const type = document.querySelector('#type')
-if (type) {
-  type.addEventListener('change', (e) => {
-    console.log(e.target.value)
+  select.addEventListener('focus', (e) => {
+    e.target.setAttribute('oldvalue', e.target.value)
   })
-}
+
+  select.addEventListener('change', (e) => {
+    if (e.target.value === e.target.getAttribute('oldvalue')) { return }
+    if (e.target.value === 'checkbox' || e.target.value === 'radio') {
+      if (!(e.target.getAttribute('oldvalue') === 'checkbox' || e.target.getAttribute('oldvalue') === 'radio')) {
+        const options = document.createElement('div')
+        options.id = e.target.id + '-options'
+
+        const addOptionButton = document.createElement('button')
+        addOptionButton.type = 'button'
+        addOptionButton.innerText = '+ Add Option'
+        addOptionButton.addEventListener('click', (e) => {
+          const index = e.target.parentElement.parentElement.getAttribute('index')
+          const newOption = document.createElement('div')
+          newOption.classList.add('prompt__options')
+          newOption.innerHTML = `
+          <label for="option">Title</label>
+          <input type="text" name="questions[${index}][options]" id="prompt-${index}">
+          `
+          options.insertBefore(newOption, e.target)
+        })
+
+        options.appendChild(addOptionButton)
+
+        prompt.appendChild(options)
+      }
+    } else {
+      const parent = e.target.parentElement
+      const options = parent.querySelector('div')
+      if (options) { parent.removeChild(options) }
+    }
+    e.target.setAttribute('oldvalue', e.target.value)
+  })
+
+  prompt.appendChild(select)
+  prompt.setAttribute('index', numPrompts)
+  promptGroup.appendChild(prompt)
+  numPrompts++
+})
