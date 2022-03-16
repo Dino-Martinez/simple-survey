@@ -1,16 +1,15 @@
+const Survey = require('../models/survey')
+
 module.exports = (app, connectDb) => {
+  // Establish connection to Database
   connectDb()
+
   app.get('/', (req, res) => {
     res.render('home')
   })
 
   app.get('/create', (req, res) => {
     res.render('create')
-  })
-
-  app.post('/create', (req, res) => {
-    console.log(req.body)
-    res.redirect('/')
   })
 
   app.get('/respond/:id', (req, res) => {
@@ -39,7 +38,16 @@ module.exports = (app, connectDb) => {
         }
       ]
     }
-
     res.render('survey', { survey: exampleSurvey })
+  })
+
+  app.post('/create', (req, res) => {
+    const newSurvey = new Survey(req.body)
+
+    newSurvey
+      .save()
+      .then(() => {
+        res.send({ status: 200, message: 'Survey created successfully!' })
+      })
   })
 }
