@@ -9,7 +9,7 @@ const SurveySchema = new Schema(
       {
         prompt: { type: String, required: true },
         type: { type: String, required: true },
-        options: { type: Array, required: false }
+        options: { type: Object, required: false }
       }
     ]
   }
