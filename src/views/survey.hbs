@@ -3,17 +3,17 @@
   <form class="prompt-group" action="/respond/:id" method="POST">
     {{#each survey.questions}}
       <div class="prompt">
-        <label for={{concat "prompt-" @index }}>{{this.prompt}}</label>
+        <label for={{concat "questions[" @index "]"}}>{{this.prompt}}</label>
         {{#if (hasOptions this.type)}}
           {{#each this.options}}
-            <input name={{concat "option-" @index}} type={{../this.type}}>
-            <label for={{concat "option-" @index}}>{{this}}</label>
+            <input name={{concat "questions[" @../index "]"}} type={{../this.type}} value={{this}} required>
+            <label for={{concat "questions[" @../index "]"}}>{{this}}</label>
           {{/each}}
         {{else}}
-          <input name={{concat "prompt-" @index}} type={{this.type}}>
+          <input name={{concat "questions[" @index "]"}} type={{this.type}} required>
         {{/if}}
       </div>
     {{/each}}
-    <button type="submit">Submit Responses</button>
+    <button class="button" type="submit">Submit Responses</button>
   </form>
 </section>

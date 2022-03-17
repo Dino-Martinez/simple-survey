@@ -14,6 +14,7 @@ html {
 
 body {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -24,8 +25,11 @@ nav {
   justify-content: center;
   gap: var(--size-fluid-3);
   padding: var(--size-fluid-3);
-  position: absolute;
-  top: 0;
+}
+
+.content {
+  display: grid;
+  place-items: center;
 }
 
 .container {
@@ -68,6 +72,31 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: var(--size-fluid-2);
+  gap: var(--size-fluid-4);
   margin-bottom: var(--size-fluid-2);
+}
+
+.options-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--size-fluid-2);
+  margin-top: var(--size-fluid-2);
+  margin-left: var(--size-fluid-4);
+}
+
+.options-group::before {
+  content: '';
+  position: absolute;
+  left: -2rem;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--text-1);
+}
+
+input, select {
+  border: var(--border-size-2) solid var(--brand);
 }
