@@ -13,41 +13,26 @@ module.exports = (app, connectDb) => {
   })
 
   app.get('/respond/:id', (req, res) => {
-    console.log('Dynamic Survey Route.')
-
-    const exampleSurvey = {
-      name: 'Is this a simple survey?',
-      questions: [
-        {
-          prompt: 'On a scale from 1 to 10 how hard is this survey?',
-          type: 'text'
-        },
-        {
-          prompt: 'What are good alternative names to simple survey?',
-          type: 'radio',
-          options: ['simpl-serve', 'simple surv(e with a tilde)', 'nothing, stop doing the most.']
-        },
-        {
-          prompt: 'How many hours will Dino spend on the front-end?',
-          type: 'checkbox',
-          options: ['+5 min', '+30 min', '+1 hr', '+3 hr']
-        },
-        {
-          prompt: 'How many surveys could a woodchuck chuck, if a woodchuck could chuck wood?',
-          type: 'number'
-        }
-      ]
+    async function fetchSurvey (req) {
+      return await Survey.findById(req.params.id).lean()
     }
-    res.render('survey', { survey: exampleSurvey })
+
+    fetchSurvey(req)
+      .then(function (survey) {
+        res.render('survey', { survey: survey })
+      })
   })
 
   app.post('/create', (req, res) => {
     const newSurvey = new Survey(req.body)
-
+    const uniqueKey = newSurvey.id
+    const surveyUrl = 'localhost:8080/respond/' + uniqueKey
+    // replace above code for production link
+    // const surveyUrl = 'https://simpl-survey.herokuapp.com/respond/' + uniqueKey
     newSurvey
       .save()
       .then(() => {
-        res.send({ status: 200, message: 'Survey created successfully!' })
+        res.send({ status: 200, message: 'Visit this link to take the survey: ' + surveyUrl })
       })
   })
 }
