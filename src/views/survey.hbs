@@ -6,7 +6,7 @@
         <label for={{concat "questions[" @index "]"}}>{{this.prompt}}</label>
         {{#if (hasOptions this.type)}}
           {{#each this.options}}
-            <input name={{concat "questions[" @../index "]"}} type={{../this.type}} value={{this}} required>
+            <input name={{concat "questions[" @../index "]"}} type={{../this.type}} value={{this}}>
             <label for={{concat "questions[" @../index "]"}}>{{this}}</label>
           {{/each}}
         {{else}}
