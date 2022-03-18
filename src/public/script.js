@@ -1,3 +1,16 @@
+
+const handleResponses = (e) => {
+  let extension = e.target.id === 'respond-button' ? '/respond/' : '/responses/'
+  extension = extension + surveyID.value
+
+  window.location.href = extension
+}
+const surveyID = document.querySelector('#survey-id')
+const respondButton = document.querySelector('#respond-button')
+const viewResponesButton = document.querySelector('#view-responses-button')
+respondButton.addEventListener('click', handleResponses)
+viewResponesButton.addEventListener('click', handleResponses)
+
 const promptGroup = document.querySelector('#prompt-group')
 const addPromptButton = document.querySelector('#add-prompt')
 let numPrompts = 0
@@ -7,7 +20,7 @@ addPromptButton.addEventListener('click', (e) => {
   prompt.classList.add('prompt')
   prompt.innerHTML = `
   <label for="prompt">Prompt</label>
-  <input type="text" name="questions[${numPrompts}][prompt]" id="prompt-${numPrompts}">
+  <input type="text" name="questions[${numPrompts}][prompt]" id="prompt-${numPrompts}" required>
 
   <label for="type">Type</label>
   `
@@ -32,17 +45,19 @@ addPromptButton.addEventListener('click', (e) => {
       if (!(e.target.getAttribute('oldvalue') === 'checkbox' || e.target.getAttribute('oldvalue') === 'radio')) {
         const options = document.createElement('div')
         options.id = e.target.id + '-options'
+        options.classList.add('options-group')
 
         const addOptionButton = document.createElement('button')
         addOptionButton.type = 'button'
         addOptionButton.innerText = '+ Add Option'
+        addOptionButton.classList.add('button')
         addOptionButton.addEventListener('click', (e) => {
           const index = e.target.parentElement.parentElement.getAttribute('index')
           const newOption = document.createElement('div')
           newOption.classList.add('prompt__options')
           newOption.innerHTML = `
           <label for="option">Title</label>
-          <input type="text" name="questions[${index}][options]" id="prompt-${index}">
+          <input type="text" name="questions[${index}][options]" id="prompt-${index}" required>
           `
           options.insertBefore(newOption, e.target)
         })

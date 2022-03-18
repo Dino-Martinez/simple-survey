@@ -1,18 +1,19 @@
 <section class="container">
   <h3>{{survey.name}}</h3>
-  <form class="prompt-group" action="/" method="GET">
+  <form class="prompt-group" action="/respond/{{key}}" method="POST">
     {{#each survey.questions}}
       <div class="prompt">
-        <label for={{concat "prompt-" @index }}>{{this.prompt}}</label>
+        <label for={{concat "questions[" @index "]"}}>{{this.prompt}}</label>
         {{#if (hasOptions this.type)}}
           {{#each this.options}}
-            <input name={{concat "option-" @index}} type={{../this.type}}>
-            <label for={{concat "option-" @index}}>{{this}}</label>
+            <input name={{concat "questions[" @../index "]"}} type={{../this.type}} value={{this}}>
+            <label for={{concat "questions[" @../index "]"}}>{{this}}</label>
           {{/each}}
         {{else}}
-          <input name={{concat "prompt-" @index}} type={{this.type}}>
+          <input name={{concat "questions[" @index "]"}} type={{this.type}} required>
         {{/if}}
       </div>
     {{/each}}
+    <button class="button" type="submit">Submit Responses</button>
   </form>
 </section>

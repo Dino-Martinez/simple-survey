@@ -1,0 +1,19 @@
+<section class="container">
+  <h3>{{survey.name}}</h3>
+  <ul>
+    {{#each survey.questions}}
+      <li>
+        <h5>{{this.prompt}}</h5>
+        {{#if (hasOptions this.type)}}
+          {{#each this.options}}
+            <p>{{this}} - {{lookup ../this.totals @index}} responses</p>
+          {{/each}}
+        {{else}}
+          {{#each this.responses}}
+            <p>{{this}}</p>
+          {{/each}}
+        {{/if}}
+      </li>
+    {{/each}}
+  </ul>
+</section>
