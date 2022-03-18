@@ -1,3 +1,16 @@
+
+const handleResponses = (e) => {
+  let extension = e.target.id === 'respond-button' ? '/respond/' : '/responses/'
+  extension = extension + surveyID.value
+
+  window.location.href = extension
+}
+const surveyID = document.querySelector('#survey-id')
+const respondButton = document.querySelector('#respond-button')
+const viewResponesButton = document.querySelector('#view-responses-button')
+respondButton.addEventListener('click', handleResponses)
+viewResponesButton.addEventListener('click', handleResponses)
+
 const promptGroup = document.querySelector('#prompt-group')
 const addPromptButton = document.querySelector('#add-prompt')
 let numPrompts = 0

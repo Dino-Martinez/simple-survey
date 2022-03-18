@@ -50,6 +50,10 @@ nav {
   flex-direction: column;
 }
 
+.container.column.start {
+  align-items: flex-start;
+}
+
 .button {
   padding: var(--size-fluid-1) var(--size-fluid-3);
   border: var(--border-size-2) solid var(--brand);
