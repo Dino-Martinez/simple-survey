@@ -64,7 +64,7 @@ module.exports = (app, connectDb) => {
           if (err) {
             res.send(err)
           } else {
-            res.redirect('/responses/' + id);
+            res.redirect('/responses/' + id)
           }
         })
       })
