@@ -1,5 +1,6 @@
-const Survey = require('../models/survey')
 const mongoose = require('mongoose')
+const Survey = require('../models/survey')
+const calcTotals = require('../utils/calcTotals')
 
 module.exports = (app, connectDb) => {
   // Establish connection to Database
@@ -66,6 +67,13 @@ module.exports = (app, connectDb) => {
             res.send({ status: 200, message: 'Responses saved successfully!!' })
           }
         })
+      })
+  })
+
+  app.get('/responses/:id', (req, res) => {
+    fetchSurvey(req)
+      .then((survey) => {
+        res.render('responses', { survey: calcTotals(survey) })
       })
   })
 }
