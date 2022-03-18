@@ -57,8 +57,7 @@ if (addPromptButton) {
             const newOption = document.createElement('div')
             newOption.classList.add('prompt__options')
             newOption.innerHTML = `
-          <label for="option">Title</label>
-          <input type="text" name="questions[${index}][options]" id="prompt-${index}" required>
+          <input type="text" name="questions[${index}][options]" id="prompt-${index}" placeholder="Option Title" required>
           `
             options.insertBefore(newOption, e.target)
           })
