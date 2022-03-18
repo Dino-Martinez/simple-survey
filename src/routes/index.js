@@ -64,7 +64,7 @@ module.exports = (app, connectDb) => {
           if (err) {
             res.send(err)
           } else {
-            res.send({ status: 200, message: 'Responses saved successfully!!' })
+            res.redirect('/responses/' + id)
           }
         })
       })
