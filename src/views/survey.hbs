@@ -1,6 +1,6 @@
 <section class="container">
   <h3>{{survey.name}}</h3>
-  <form class="prompt-group" action="/respond/:id" method="POST">
+  <form class="prompt-group" action="/respond/{{key}}" method="POST">
     {{#each survey.questions}}
       <div class="prompt">
         <label for={{concat "questions[" @index "]"}}>{{this.prompt}}</label>

@@ -15,13 +15,10 @@ module.exports = (app, connectDb) => {
   app.post('/create', (req, res) => {
     const newSurvey = new Survey(req.body)
     const uniqueKey = newSurvey.id
-    const surveyUrl = 'localhost:8080/respond/' + uniqueKey
-    // replace above code for production link
-    // const surveyUrl = 'https://simpl-survey.herokuapp.com/respond/' + uniqueKey
     newSurvey
       .save()
       .then(() => {
-        res.send({ status: 200, message: 'Visit this link to take the survey: ' + surveyUrl })
+        res.render('link', { key: uniqueKey })
       })
   })
 
@@ -33,7 +30,7 @@ module.exports = (app, connectDb) => {
 
     fetchSurvey(req)
       .then(function (survey) {
-        res.render('survey', { survey: survey })
+        res.render('survey', { key: req.params.id, survey: survey })
       })
   })
 
